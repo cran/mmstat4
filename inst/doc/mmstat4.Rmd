@@ -1,0 +1,269 @@
+---
+title: "mmstat4"
+author: 
+- name: "Sigbert Klinke" 
+  email: sigbert@hu-berlin.de
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+vignette: > 
+  %\VignetteIndexEntry{mmstat4} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  \usepackage[utf8]{inputenc} 
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r , echo=FALSE}
+suppressPackageStartupMessages(library("mmstat4"))
+```
+
+# General
+
+The aim of this package is to provide teaching materials for various statistics courses for students.
+The materials (R code snippets, Shiny apps, HTML and PDF documents, datasets, ...) are stored in a GitHub repository. GitHub allows downloading the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can also use any of your own ZIP files.
+
+In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the example programs for the students, but also the programs I use to generate images and tables, and also the Shiny Apps I show.
+
+# Using a ZIP file or repository
+
+## `ghget`
+
+A ZIP file or repository can be stored locally or in the internet.
+A user defined key has to be given for the location of the ZIP file
+
+```{r, eval=FALSE}
+ghget(dummy="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
+```
+
+Three repositories are predefined: `hu.data`, `hu.stat` and `dummy`. You can retrieve them via
+
+```{r, eval=FALSE}
+ghget('dummy')
+ghget('hu.stat')
+ghget('hu.data')
+ghget()           # uses hu.data
+```
+
+`ghget` downloads the ZIP file, saves it to a temporary location and unpacks it. For non-temporary locations, see the FAQ.
+
+## Full and short names for files
+
+In addition, unique short names, related to the zip file content, are generated from the path components.
+
+After unpacking the ZIP file, unique short names are generated for these files.
+
+```{r}
+ghget('dummy')
+gd <- ghdecompose(ghlist(full.names=TRUE))
+head(gd)
+```
+
+The file name is split into four parts. The last two parts, `minpath` and `filename`, are used to create short names:
+
+1. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/LICENSE` is `LICENSE`. There was no other file named `LICENSE` in the ZIP file. Therefore, it is sufficient to address this file in the ZIP file. 
+2. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/data/BANK2.sav` is `data/BANK2.sav`. There is another file called `BANK2.sav` in the ZIP file, but to address it uniquely, `data/BANK2.sav` is sufficient for this file in the ZIP file (the other is `dbscan/BANK2.sav`). Currently, no check is made whether two files with identical basenames are also identical in content.
+
+```{r}
+ghlist("BANK2", full.names=TRUE) # full names
+ghlist("BANK2")                  # short names
+```
+
+## `ghopen`, `ghload`, `ghsource`
+
+The short names (or the full names) can be used to work with the files
+
+```{r, eval=4}
+x <- ghload("data/BANK2.sav")          # load data via rio::import
+ghopen("univariate/example_ecdf.R")    # open file in RStudio editor
+ghsource("univariate/example_ecdf.R")  # execute file via source
+ghlist("example_ecdf")                 # "univariate/" was unnecessary
+```
+
+## `ghlist`, `ghquery`
+
+With `ghlist` you can get a list of unique (short) names for all files or a subset based on a regular expression `pattern` in the repository
+
+```{r}
+str(ghlist())     # get all short names
+ghlist("\\.pdf$") # get all short names of PDF files
+```
+
+With `ghquery` you can query the list of unique (short) names for all files based on the overlap distance.
+
+```{r}
+ghlist("bnk")  # pattern = "bnk
+ghquery("bnk") # nearest string matching to "bnk"
+```
+
+## `ghfile`, `ghpath`, `ghdecompose`
+
+`ghfile` tries to find a unique match for a given file and returns the full path. If there is no unique match, an error is returned with some possible matches.
+
+`ghdecompose` builds a data frame and decomposes the full names of the files into 
+
+* `commonpath` the path part which is the same for all files,
+* `uniquepath` the path part that is unique for all files,
+* `minpath` the minimum path part, so that all files are uniquely addressable,
+* `filename` the base name of the file, and
+* `source` the input for shortpath.
+
+The short names for the files are built from the components `minpath` and `filename`.
+
+`ghpath` builds up the short name with various path components from a `ghdecompose` object.
+
+```{r}
+ghfile('data/BANK2.sav')
+ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+fnf <- ghlist(full.names=TRUE)
+dfn <- ghdecompose(fnf)
+head(dfn)
+head(ghpath(dfn))
+```
+
+## RStudio addins
+
+The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
+
+* _Open a file from a zip file_ (`ghopenAddin`), which gives access to the unzipped zip file and opens the selected file in an RStudio editor window.
+
+* _Execute a Shiny app from a zip file_ (`ghappAddin`), which extracts all directories containing Shiny apps and opens the selected app in a web browser (using the default browser).
+
+# Preparations for a ZIP file
+
+Currently there are the following routines to support R code snippets:
+
+* `Rlibs`, which extracts all `library` and `require` calls from the R code snippets and returns a frequency table of the packages called.
+
+```{r}
+ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+files <- ghlist(pattern="*.R$", full.names = TRUE)
+head(Rlibs(files), 30)
+```
+
+* `Rsolo`, which checks that each R code snippet runs smoothly in a freshly started R. 
+
+```{r, eval=FALSE}
+# just check the last files from the list 
+# Note that the R console will show more output (warnings etc.)
+Rsolo(files, start=435)  
+```
+
+Note: there is also an error message if the necessary libraries are not installed!
+
+# Frequently asked questions
+
+## How can I force a reload of a zip file?
+
+```{r, eval=FALSE}
+ghget("dummy", .force=TRUE)
+```
+
+## How can I store a zip file permanently?
+
+```{r, eval=FALSE}
+ghget("dummy", .tempdir=FALSE)        # install non-temporarily
+ghget("dummy", .tempdir="~/mmstat4")  # install non-temporarily to ~/mmstat4
+ghget("dummy", .tempdir=TRUE)         # install again temporarily
+
+```
+
+Note: If a repository was installed permanently and you switch back to temporarily storage then the downloaded files will not be deleted.
+
+## How can I find all directories with Shiny apps?
+
+```{r, eval=FALSE}
+ghget("dummy", .tempdir=TRUE)
+ghlist(pattern="/(app|server)\\.R$")
+ghopen("dbscan") # open the app
+```
+
+## How can I find all `csv` data files?
+
+```{r}
+ghget("dummy", .tempdir=TRUE)
+ghlist(pattern="\\.csv$", ignore.case=TRUE, full.names=TRUE)
+# use mmstat4::ghload for importing
+ghlist(pattern="\\.csv$")
+pechstein <- ghload("pechstein.csv")
+str(pechstein)
+```
+
+# Default repositories
+
+The package has three default repositories: `dummy`, `hu.stat`, and  `hu.data`. 
+
+```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Repository       | Size          | ZIP file location |
+| :--------------- | :-------------| :--------|
+| `dummy`          | 3 MB          | `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`  |
+| `hu.stat`        | 29 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
+| `hu.data`        | 31 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
+"
+cat(tabl) 
+```
+
+`dummy` is small subsample of `hu.stat` and `hu.data` which is intended for examples and test purposes. 
+
+## Lecture Notes Sigbert Klinke, HU Berlin
+
+### Basic statistics I+II (in german)
+
+Mathematische Grundlagen - Einführung - Grundbegriffe - Univariate Verteilungen - Parameter  univariater Verteilungen - Bivariate Verteilungen - Parameter bivariater Verteilungen - Regressionanalyse - Zeitreihenanalyse - Indexzahlen - Wahrscheinlichkeitsrechnung - Zufallsvariablen - So lügt man mit Statistik - Wichtige Verteilungsmodelle - Stichprobentheorie - Statistische Schätzverfahren - Regressionsmodell - Konfidenzintervalle - Statistische Testverfahren - Parameterische Tests - Nichtparametrische Tests
+
+```{r, eval=FALSE}
+ghget("hu.stat")
+ghopen("Statistik.pdf")
+ghopen("Aufgaben.pdf")
+ghopen("Loesungen.pdf")
+ghopen("Formelsammlung.pdf")
+```
+
+### Data analysis
+
+General - R - Basics and data generation - Test and estimation theory - Parameter of
+distributions - Distribution - Transformations - Robust statistics - Missing values -
+Subgroup analysis - Correlation and association - Multivariate graphics - Principal component analysis - Exploratory factor analysis - Reliability - Cluster analysis -
+Regression analysis - Linear regression - Nonparametric regression - Classification and regression trees - Neural networks
+
+```{r, eval=FALSE}
+ghget("hu.data")
+ghopen("dataanalysis.pdf")
+```
+
+## Lecture Notes Bernd Rönz, HU Berlin (in german)
+
+### Computergestützte Statistik I mit SPSS 10 (2001)
+
+Einführung - Entdeckung und Identifikation von Ausreißern - Prüfung der Verteilungsform von Variablen - Parametervergleiche bei unbhängigen Stichproben - Anhänge A-D, Literaturverzeichnis, Index
+
+```{r, eval=FALSE}
+ghget("hu.data")
+ghopen("cs1_roenz.pdf")
+```
+
+### Computergestützte Statistik II mit SPSS 10 (2000)
+
+Vorwort - Überprüfung von Zusammenhängen - Regressionsanalyse - Reliabilitäts- und Homogenitätsanalyse von Konstrukten - Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
+
+```{r, eval=FALSE}
+ghget("hu.data")
+ghopen("cs2_roenz.pdf")
+```
+
+### Generalisierte lineare Modelle mit SPSS 10 (2001)
+
+Einführung - Verallgemeinerte lineare Modelle (generalized linear models, GLM) - Modellierung binärer Daten - Das multinomiale Logit Modell - Modellierung multinomialer Daten (log-lineare Modelle) - Literaturverzeichnis, Index 
+
+```{r, eval=FALSE}
+ghget("hu.data")
+ghopen("glm_roenz.pdf")
+```
