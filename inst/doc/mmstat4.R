@@ -57,6 +57,26 @@ head(Rlibs(files), 30)
 #  # Note that the R console will show more output (warnings etc.)
 #  Rsolo(files, start=435)
 
+## -----------------------------------------------------------------------------
+files <- ghlist(full.names = TRUE)
+head(Rdups(files))
+
+## -----------------------------------------------------------------------------
+ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+ghnames <- ghdecompose(ghlist(full.names=TRUE))
+ghnames[58,]
+
+## ---- error=TRUE--------------------------------------------------------------
+x1 <- ghload("BANK2.sav")
+x2 <- ghload("dbscan/BANK2.sav")
+x3 <- ghload("cluster/dbscan/BANK2.sav")
+x4 <- ghload("data/cluster/dbscan/BANK2.sav")
+x5 <- ghload("examples/data/cluster/dbscan/BANK2.sav")
+
+## ---- eval=FALSE--------------------------------------------------------------
+#  # install.packages("devtools")
+#  devtools::install_github("sigbertklinke/mmstat4")
+
 ## ---- eval=FALSE--------------------------------------------------------------
 #  ghget("dummy", .force=TRUE)
 
