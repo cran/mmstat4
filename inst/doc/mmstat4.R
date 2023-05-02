@@ -104,8 +104,8 @@ tabl <- "
 | Repository       | Size          | ZIP file location |
 | :--------------- | :-------------| :--------|
 | `dummy`          | 3 MB          | `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`  |
-| `hu.stat`        | 29 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
-| `hu.data`        | 31 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
+| `hu.data`        | 29 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
+| `hu.stat`        | 31 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
 "
 cat(tabl) 
 
