@@ -1,8 +1,9 @@
-9d7d1d6d3066dc2ea22bd9e59937d8f3 *DESCRIPTION
-6f542447b5cb498cd4021493b139c09b *NAMESPACE
+6beedae3942619bed77e2c0ce34dca98 *DESCRIPTION
+5acb95e25640c1ff7f24294012c4f01e *NAMESPACE
 b55b0b566098babc075b2b0f999aee55 *R/Rdups.R
 90edef5ed1d307ea037a0889a4ca31bc *R/Rlibs.R
 83e2467ba5eec47e99d9822624c38edd *R/Rsolo.R
+3a1d62fe6e72cd1ec039cbe32fc0c14d *R/association_measures.R
 e7c2c2633f723212793040da3049476a *R/cdf.R
 1f4c6405d534649388b1fbaf2ce19440 *R/getList.R
 2ec48d671a6073cdb7f07aebcb36f773 *R/getMMstat.R
@@ -21,11 +22,11 @@ cc6636a18645e429f663ee67082d850d *R/ghquery.R
 f7d159637fd4d38a875877d217ebd956 *R/toInt.R
 9e4f42882ef0c6880957005828e434b7 *R/toNum.R
 fdaeb73a313ee9604b293522e1e6b1dd *R/zzz.R
-a6c46226324729b64fff428ba6c73726 *README.md
+1d50e468e6ab40ac96e19fc2b4172a61 *README.md
 849a984914c9212ddd29e946e5bc0b0b *build/vignette.rds
 e37880d4c4541b60a42701e21e78cbd5 *inst/doc/mmstat4.R
 f9fd75f72a10013d503001b09777caaf *inst/doc/mmstat4.Rmd
-bc5dba4f4d0c068f1a5b8faf54c718d0 *inst/doc/mmstat4.html
+8045c4747ce13c658b775f2146a9852d *inst/doc/mmstat4.html
 6704f5a11a3aff2d930f6b8ba8c46cc4 *inst/extdata/BOSTONH.SAV
 0d617a7b046e3d58b7c2affd4523b35d *inst/extdata/kriegsschiffe.xlsx
 df8e250d9a0dd3c1c4e55304b88d1eb3 *inst/rstudio/addins.dcf
@@ -33,6 +34,7 @@ df8e250d9a0dd3c1c4e55304b88d1eb3 *inst/rstudio/addins.dcf
 231de5a71423df004fb863014c56b5ac *man/Rdups.Rd
 4fdc9953268d70f356bb62b821651ed8 *man/Rlibs.Rd
 2cd20ac193f57dc564aa0c2426e7619d *man/Rsolo.Rd
+1aaf944b0bbaec30151fc6f2a060495f *man/association.Rd
 b6989322be5844a8dfad16c4c179a560 *man/cdf.Rd
 f59b1480ce643aa230998457f94f037d *man/getList.Rd
 d86113f7d7db530bb38a7e32134758b7 *man/getMMstat.Rd
