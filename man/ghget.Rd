@@ -4,14 +4,16 @@
 \alias{ghget}
 \title{ghget}
 \usage{
-ghget(..., .force = FALSE, .tempdir = TRUE)
+ghget(..., .force = FALSE, .tempdir = TRUE, .quiet = !interactive())
 }
 \arguments{
 \item{...}{parameters to set and activate a repository}
 
 \item{.force}{logical: download and unzip in any case? (default: \code{FALSE})}
 
-\item{.tempdir}{logical or character: store download temporary or permanently (default: \code{getOption("mmstat4.tempdir")})
+\item{.tempdir}{logical or character: store download temporary or permanently (default: \code{getOption("mmstat4.tempdir")})}
+
+\item{.quiet}{logical: show repository read attempts (default: \code{!interactive()})
 \itemize{
 \item if \code{.tempdir==TRUE} then the downloaded zip file will be stored temporarily in \code{\link[=tempdir]{tempdir()}}
 \item if \code{.tempdir==FALSE} then the downloaded zip file will be stored temporarily in \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}}
@@ -19,13 +21,14 @@ ghget(..., .force = FALSE, .tempdir = TRUE)
 }}
 }
 \value{
-invisibly the name of the current key
+the name of the current key or nothing if unsuccessful
 }
 \description{
 Makes a repository the active repository and downloads it if necessary.
-If the function is run interactively then you are asked if you want to store the repository in the application directory
-\code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}} for \code{mmstat4} or in the temporary directory \code{\link[=tempdir]{tempdir()}}. Otherwise the stored directory
-path is used (usually \code{\link[=tempdir]{tempdir()}}).
+The parameter \code{.tempdir} is \code{TRUE} (default) then the repository is stored in the
+in the temporary directory \code{\link[=tempdir]{tempdir()}} else in the application directory
+\code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}} for \code{mmstat4}.
+The parameter \code{.tempdir} is not \code{logical} then the value will be used as installation path.
 }
 \details{
 Note, the list of repository names, directories and urls is stored in the installation directory, too.
