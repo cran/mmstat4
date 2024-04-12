@@ -62,11 +62,11 @@ head(Rlibs(files), 30)
 ## ----eval=FALSE---------------------------------------------------------------
 #  # just check the last files from the list
 #  # Note that the R console will show more output (warnings etc.)
-#  Rsolo(files, start=435)
+#  checkFile(files, start=435)  # alternatively: Rsolo
 
 ## -----------------------------------------------------------------------------
 files <- ghlist(full.names = TRUE)
-head(Rdups(files))
+head(dupFiles(files))  # alternatively: Rdups
 
 ## -----------------------------------------------------------------------------
 ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
@@ -105,6 +105,13 @@ ghlist(pattern="\\.csv$", ignore.case=TRUE, full.names=TRUE)
 ghlist(pattern="\\.csv$")
 pechstein <- ghload("pechstein.csv")
 str(pechstein)
+
+## ----eval=FALSE---------------------------------------------------------------
+#  sudo apt-get install python3 python3-dev python3-pip python3-venv libbz2-dev
+
+## ----eval=FALSE---------------------------------------------------------------
+#  reticulate::virtualenv_remove('mmstat4')
+#  ghinstall('py', force=TRUE)
 
 ## ----echo=FALSE, message=FALSE, warnings=FALSE, results='asis'----------------
 tabl <- "
