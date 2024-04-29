@@ -16,11 +16,10 @@
 #'
 #' @param x character(1): name of the file, app or data set
 #' @param what character or function: a name of a predefined function or another function. The function must have a formal parameter `file`.
-#' @param ... further parameters used in [utils::browseURL()], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
+#' @param ... further parameters used in [utils::browseURL()], [openFile()], [rio::import()], or [base::source()].
 #' @param .call the original function call (default: `NULL`)
 #'
-#' @return invisibly the result of [utils::browseURL], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
-#' @importFrom rstudioapi navigateToFile
+#' @return invisibly the result of [utils::browseURL], [openFile()], [rio::import()], or [base::source()].
 #' @importFrom utils browseURL adist menu
 #' @importFrom tools file_ext
 #' @importFrom rio import
@@ -53,7 +52,7 @@ gh <- function (x, what=c("open", "load", "source", "app"), ..., .call=NULL) {
                   load=rio::import,
                   source=base::source,
                   app=mmstat4::defaultApp,
-                  if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) utils::browseURL else rstudioapi::navigateToFile)
+                  if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) utils::browseURL else openFile)
   }
   stopifnot(is.function(fun))
   ffun <- formals(fun)

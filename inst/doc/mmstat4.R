@@ -8,6 +8,34 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library("mmstat4"))
 
 ## ----eval=FALSE---------------------------------------------------------------
+#  install.packages("mmstat4")
+
+## ----eval=FALSE---------------------------------------------------------------
+#  devtools::install_github("sigbertklinke/mmstat")
+
+## ----eval=FALSE---------------------------------------------------------------
+#  ghget('local')
+#  ghopen("example_mcnemar.R")  # open a R example file
+
+## ----eval=FALSE---------------------------------------------------------------
+#  ghopen("example_mcnemar.py")  # open a Python example file
+
+## ----eval=FALSE---------------------------------------------------------------
+#  ghopen("pca_best_line/app.R")  # open a Shiny app
+
+## ----eval=FALSE---------------------------------------------------------------
+#  x <- ghload("TelefonDaten.csv")  # load a data set
+#  head(x)
+
+## ----echo=FALSE---------------------------------------------------------------
+x <- ghget("local")
+x <- ghload("TelefonDaten.csv")  # load a data set
+head(x)
+
+## ----eval=FALSE---------------------------------------------------------------
+#  ghopen("Formelsammlung.pdf")  # open a PDF file
+
+## ----eval=FALSE---------------------------------------------------------------
 #  ghget(dummy="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 
 ## ----eval=FALSE---------------------------------------------------------------
@@ -57,7 +85,10 @@ head(ghpath(dfn))
 ## -----------------------------------------------------------------------------
 ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
 files <- ghlist(pattern="*.R$", full.names = TRUE)
-head(Rlibs(files), 30)
+cat(head(pkglist(files, repos="https://cloud.r-project.org"), 12))
+
+## ----eval=FALSE---------------------------------------------------------------
+#  cat(head(pkglist(files, repos=c("https://cloud.r-project.org", "http://R-Forge.R-project.org")), 12))
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  # just check the last files from the list

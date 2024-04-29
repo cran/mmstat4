@@ -24,12 +24,12 @@ ghapp(x, ...)
 
 \item{what}{character or function: a name of a predefined function or another function. The function must have a formal parameter \code{file}.}
 
-\item{...}{further parameters used in \code{\link[utils:browseURL]{utils::browseURL()}}, \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.}
+\item{...}{further parameters used in \code{\link[utils:browseURL]{utils::browseURL()}}, \code{\link[=openFile]{openFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.}
 
 \item{.call}{the original function call (default: \code{NULL})}
 }
 \value{
-invisibly the result of \link[utils:browseURL]{utils::browseURL}, \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.
+invisibly the result of \link[utils:browseURL]{utils::browseURL}, \code{\link[=openFile]{openFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.
 }
 \description{
 The function \code{gh} carries out the following operation on a file named \code{x}.

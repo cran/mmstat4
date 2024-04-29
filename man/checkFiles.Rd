@@ -9,7 +9,7 @@ checkFiles(
   files,
   index = seq_along(files),
   path = NULL,
-  open = rstudioapi::navigateToFile,
+  open = openFile,
   mode = c("parse", "run", "exist"),
   ...
 )
@@ -18,7 +18,7 @@ Rsolo(
   files,
   index = seq_along(files),
   path = NULL,
-  open = rstudioapi::navigateToFile,
+  open = openFile,
   mode = c("parse", "run", "exist"),
   ...
 )
@@ -30,7 +30,7 @@ Rsolo(
 
 \item{path}{character: path to start from (default: \code{getwd()})}
 
-\item{open}{function: function or function name to call after an error occurs (default: \code{rstudioapi::navigateToFile})}
+\item{open}{function: function or function name to call after an error occurs (default: \code{openFile})}
 
 \item{mode}{character which check to do}
 

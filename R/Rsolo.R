@@ -21,12 +21,11 @@
 #' @param files character: file name(s)
 #' @param index integer(s):  if `length(index)==1` the files from `index` to `length(files)` are checked (default: `seq_along(files)`) otherwise the files with values in `index` are checked.
 #' @param path character: path to start from (default: `getwd()`)
-#' @param open function: function or function name to call after an error occurs (default: `rstudioapi::navigateToFile`)
+#' @param open function: function or function name to call after an error occurs (default: `openFile`)
 #' @param mode character which check to do
 #' @param ... further parameters given to the function in `open`
 #'
 #' @return nothing
-#' @importFrom rstudioapi navigateToFile
 #' @importFrom reticulate py_discover_config
 #' @importFrom tools file_ext
 #' @export
@@ -36,7 +35,7 @@
 #'   files <- list.files(pattern="*.(R|py)$", full.names=TRUE, recursive=TRUE)
 #'   checkFiles(files)
 #' }
-checkFiles <- function(files, index=seq_along(files), path=NULL, open=rstudioapi::navigateToFile, mode=c('parse', 'run', 'exist'), ...) {
+checkFiles <- function(files, index=seq_along(files), path=NULL, open=openFile, mode=c('parse', 'run', 'exist'), ...) {
   # which files to test
   index <- as.integer(index)
   if (length(index)==1) index <- index[1]:length(index)

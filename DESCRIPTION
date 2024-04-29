@@ -1,6 +1,6 @@
 Package: mmstat4
 Title: Access to Teaching Materials from a ZIP File or GitHub
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
   c(person(given = "Sigbert",
            family = "Klinke",
@@ -21,15 +21,15 @@ Description: Provides access to teaching materials for various statistics course
     from the archived package 'ryouready' by Mark Heckman and some auxiliary functions.
 License: GPL-3
 Encoding: UTF-8
-Imports: crayon, digest, httr, tcltk, rappdirs, reticulate, rio,
+Imports: crayon, digest, httr, knitr, tcltk, rappdirs, reticulate, rio,
         rstudioapi, shiny, stringdist, tools
-Suggests: knitr, rmarkdown
+Suggests: rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 7.3.1
 NeedsCompilation: no
-Packaged: 2024-04-12 10:27:17 UTC; sigbert
+Packaged: 2024-04-29 11:40:46 UTC; sigbert
 Author: Sigbert Klinke [aut, cre] (<https://orcid.org/0000-0003-3337-1863>),
   Jekaterina Zukovska [ctb] (<https://orcid.org/0000-0002-7753-9210>)
 Maintainer: Sigbert Klinke <sigbert@hu-berlin.de>
 Repository: CRAN
-Date/Publication: 2024-04-12 10:50:02 UTC
+Date/Publication: 2024-04-29 12:10:02 UTC
